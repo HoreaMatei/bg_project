@@ -5,6 +5,7 @@ import Image from "./Image.jsx";
 import Button from "./Button.jsx";
 import ImageHeader from "./ImageHeader.jsx";
 import ImageProcessingComponent from "./ImageProcessingComponent.jsx";
+import DownloadBtn from "./DownloadBtn.jsx";
 
 async function sendImageRequest(imageUrl) {
   const response = await fetch(`http://localhost:3000/api/image`, {
@@ -73,6 +74,18 @@ const ImageComponent = () => {
     uploadImage();
   }, [selectedFile]);
 
+  const handleDownload = () => {
+    console.log("btn clicked");
+    if (processedImage === null) {
+      console.log("image is null");
+    } else {
+      const link = document.createElement("a");
+      link.href = processedImage;
+      link.download = "no-background-img.jpg";
+      link.click();
+    }
+  };
+
   return (
     <div
       style={{
@@ -96,13 +109,30 @@ const ImageComponent = () => {
             <div className="rounded-4xl w-[90vw] xl:w-[32vw] shadow-xl h-fit">
               <Image src={processedImage} />
             </div>
-            <Button className="mb-2" text="Download"></Button>
+            <div className="flex flex-row lg:flex-col ">
+              {" "}
+              <DownloadBtn
+                className="w-[40vw] lg:w-[50%] "
+                handleDownload={handleDownload}
+              />
+              <Button
+                className="lg:hidden w-[40vw]"
+                text={!preview ? "Upload Image" : "Change Image"}
+              >
+                <input
+                  id="file-upload-2"
+                  type="file"
+                  className="hidden"
+                  onChange={handleChange}
+                />
+              </Button>
+            </div>
           </div>
         ) : (
           <ImageHeader />
         )}
 
-        <Button
+        {/* <Button
           className="lg:hidden"
           text={!preview ? "Upload Image" : "Change Image"}
         >
@@ -112,13 +142,13 @@ const ImageComponent = () => {
             className="hidden"
             onChange={handleChange}
           />
-        </Button>
+        </Button> */}
         <div className=" pb-4 mt-[14vh] hidden lg:block  bg-stone-50  shadow-[0_4px_15px_0_rgba(0,0,0,0.2)] w-[25vw] xl:w-[20vw] min-h-fit h-[34vh] rounded-4xl text-center  ">
           <p className="text-md font-bold text-blue-500 w-40 m-auto mt-16 ">
             Remove the background of any image
           </p>
           <Button
-            className="mt-4"
+            className="mt-4  w-70 lg:w-[50%] "
             text={!preview ? "Upload Image" : "Change Image"}
           >
             <input
