@@ -11,7 +11,7 @@ const ImageHeader = () => {
       >
         <source src="/video.mp4" type="video/ogg" />
       </video>
-      <p className=" m-auto text-stone-600 w-[50vw] lg:w-[24vw] text-2xl md:text-3xl lg:text-6xl  font-bold text-left ">
+      <p className=" m-auto text-stone-500 w-[50vw] lg:w-[24vw] text-2xl md:text-3xl   lg:text-[5vh] font-bold text-left ">
         Remove Image Background
       </p>
     </div>
