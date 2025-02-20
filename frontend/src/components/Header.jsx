@@ -1,10 +1,10 @@
-import React from "react";
-
 const Header = () => {
   return (
-    <div className="text-6xl text-center text-yellow-50 py-10">
-      AI Background Remover
-    </div>
+    <header className="relative text-center text-[#7c3331]  mt-24 sm:mt-20 lg:mt-56 ">
+      <h1 className="text-2xl  sm:text-3xl lg:text-6xl  font-bold font-mono z-10">
+        AI Background Remover
+      </h1>
+    </header>
   );
 };
 

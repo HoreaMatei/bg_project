@@ -20,9 +20,5 @@ export async function generateImage(imageUrl) {
   const imageBuffer = await imageBlob.arrayBuffer();
   const image2 = Buffer.from(imageBuffer);
 
-  console.log(output);
-  console.log(imageBlob);
-  console.log(imageBuffer);
-  console.log(image2);
   return image2;
 }

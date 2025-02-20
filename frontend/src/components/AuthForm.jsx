@@ -1,0 +1,99 @@
+import { useActionState, useState } from "react";
+import InputContainer from "./InputContainer";
+import Form from "./Form";
+import Label from "./Label";
+import Input from "./Input";
+import { useAuthContext } from "../store/auth-context";
+
+const AuthForm = () => {
+  const authCtx = useAuthContext();
+  const [authMode, setAuthMode] = useState("login");
+  const [error, setError] = useState();
+
+  function handleSwitchAuthMode() {
+    setAuthMode((prevAuthMode) => {
+      if (prevAuthMode === "login") {
+        return "signup";
+      } else {
+        return "login";
+      }
+    });
+  }
+  async function submitAction(_, formData) {
+    setError(null);
+    const email = formData.get("email");
+    const password = formData.get("password");
+    try {
+      if (authMode === "signup") {
+        await authCtx.signup(email, password);
+      } else {
+        await authCtx.login(email, password);
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
+  const [, action, isPending] = useActionState(submitAction);
+
+  return (
+    <div className=" text-center w-[90vw] m-auto relative ">
+      <h2 className="font-bold  text-[#d3c27f] text-xl sm:text-2xl lg:text-3xl  mt-16 z-10">
+        Login to try it
+      </h2>
+
+      <Form
+        className=" border  max-w-[25rem] shadow-2xl bg-[#551e1b] opacity-95 mt-14 mx-auto"
+        action={action}
+      >
+        <InputContainer>
+          <Label className=" w-64 lg:w-80 m-auto mb-2" htmlFor="email">
+            Email
+          </Label>
+          <Input
+            className="h-8  lg:h-10"
+            type="email"
+            id="email"
+            name="email"
+          />
+        </InputContainer>
+
+        <InputContainer>
+          <Label className=" w-64 lg:w-80 m-auto mb-2" htmlFor="password">
+            Password
+          </Label>
+          <Input
+            className="h-8 lg:h-10"
+            type="password"
+            id="password"
+            name="password"
+          />
+        </InputContainer>
+        {error && <p className="text-red-300  0mt-3">{error}</p>}
+
+        <p className="flex flex-col gap-3 mt-4">
+          <button
+            className="bg-[#d3d3d3ec] mx-auto cursor-pointer shadow-lg text-black py-1 lg:py-2 hover:bg-[#b1aeaeec] disabled:cursor-not-allowed disabled:bg-stone-400 disabled:text-stone-600 w-32  lg:w-80  "
+            disabled={isPending}
+          >
+            {!isPending && authMode === "login"
+              ? "Login"
+              : !isPending
+              ? "Sign up"
+              : "Submitting"}
+          </button>
+          <button
+            disabled={isPending}
+            className="cursor-pointer text-white"
+            type="button"
+            onClick={handleSwitchAuthMode}
+          >
+            {authMode === "login" ? "Create new user" : "Login"}
+          </button>
+        </p>
+      </Form>
+    </div>
+  );
+};
+
+export default AuthForm;

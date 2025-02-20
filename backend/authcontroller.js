@@ -29,7 +29,7 @@ export async function loginUser(req, res) {
     res.status(200).send({ message: "Login successfull", token });
   } catch (error) {
     if (error.status === 400) {
-      return res.status(400).send({ error: message.error });
+      return res.status(400).send({ error: error.message });
     }
     res.status(500).send({
       error: "Login failed, please check credentials",

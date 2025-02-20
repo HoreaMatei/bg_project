@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Buffer } from "buffer";
-import Label from "./Label.jsx";
+import Label from "./BtnLabel.jsx";
 import Image from "./Image.jsx";
 import Button from "./Button.jsx";
 import ImageHeader from "./ImageHeader.jsx";
 import ImageProcessingComponent from "./ImageProcessingComponent.jsx";
 import DownloadBtn from "./DownloadBtn.jsx";
+import Navbar from "./Navbar.jsx";
 
 async function sendImageRequest(imageUrl) {
   const response = await fetch(`http://localhost:3000/api/image`, {
@@ -87,16 +88,8 @@ const ImageComponent = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundImage: "url(/bg4.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "93.3vh",
-        overflow: "hidden",
-      }}
-    >
-      {" "}
+    <div>
+      <Navbar />{" "}
       <div
         className={` h-[70vh]  flex flex-col lg:flex-row   w-[90vw] md:w-[80vw]  xl:w-[70vw] 2xl:w-[60vw]    ${
           preview ? "m-auto pt-24 lg:pt-[10vh]" : "m-auto pt-24 lg:pt-[16vh]"
@@ -132,17 +125,6 @@ const ImageComponent = () => {
           <ImageHeader />
         )}
 
-        {/* <Button
-          className="lg:hidden"
-          text={!preview ? "Upload Image" : "Change Image"}
-        >
-          <input
-            id="file-upload-2"
-            type="file"
-            className="hidden"
-            onChange={handleChange}
-          />
-        </Button> */}
         <div className=" pb-4 mt-[14vh] hidden lg:block  bg-stone-50  shadow-[0_4px_15px_0_rgba(0,0,0,0.2)] w-[25vw] xl:w-[20vw] min-h-fit h-[34vh] rounded-4xl text-center  ">
           <p className="text-md font-bold text-blue-500 w-40 m-auto mt-16 ">
             Remove the background of any image
