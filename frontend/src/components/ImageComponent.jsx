@@ -8,8 +8,10 @@ import ImageProcessingComponent from "./ImageProcessingComponent.jsx";
 import DownloadBtn from "./DownloadBtn.jsx";
 import Navbar from "./Navbar.jsx";
 
+const BACKEND_PORT = import.meta.env.VITE_BACKEND_URL;
+
 async function sendImageRequest(imageUrl) {
-  const response = await fetch(`http://localhost:3000/api/image`, {
+  const response = await fetch(`${BACKEND_PORT}/api/image`, {
     method: "POST",
     body: JSON.stringify({ image: imageUrl }), //  Sends the URL as JSON
     headers: {
@@ -122,7 +124,20 @@ const ImageComponent = () => {
             </div>
           </div>
         ) : (
-          <ImageHeader />
+          <div className="">
+            <ImageHeader />
+            <Button
+              className="lg:hidden w-[40vw]"
+              text={!preview ? "Upload Image" : "Change Image"}
+            >
+              <input
+                id="file-upload-2"
+                type="file"
+                className="hidden"
+                onChange={handleChange}
+              />
+            </Button>
+          </div>
         )}
 
         <div className=" pb-4 mt-[14vh] hidden lg:block  bg-stone-50  shadow-[0_4px_15px_0_rgba(0,0,0,0.2)] w-[25vw] xl:w-[20vw] min-h-fit h-[34vh] rounded-4xl text-center  ">

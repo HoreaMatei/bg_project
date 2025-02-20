@@ -1,6 +1,6 @@
 import { createContext, use, useEffect, useState } from "react";
 
-const backendPORT = "http://localhost:3000";
+const BACKEND_PORT = import.meta.env.VITE_BACKEND_URL;
 
 const AuthContext = createContext({
   token: null,
@@ -47,7 +47,7 @@ export function AuthContextProvider({ children }) {
   }, []);
 
   async function signup(email, password) {
-    const response = await fetch(`http://localhost:3000/api/signup`, {
+    const response = await fetch(`${BACKEND_PORT}/api/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export function AuthContextProvider({ children }) {
   }
 
   async function login(email, password) {
-    const response = await fetch(`http://localhost:3000/api/login`, {
+    const response = await fetch(`${BACKEND_PORT}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
