@@ -37,13 +37,13 @@ const AuthForm = () => {
   const [, action, isPending] = useActionState(submitAction);
 
   return (
-    <div className=" text-center w-[90vw] m-auto relative ">
-      <h2 className="font-bold  text-[#d3c27f] text-xl sm:text-2xl lg:text-3xl  mt-16 z-10">
+    <div className=" text-center w-[90vw] m-auto relative  h-screen">
+      <h2 className="font-bold  text-[#d3c27f] text-xl sm:text-2xl lg:text-3xl  mt-16 z-10 ">
         Login to try it
       </h2>
 
       <Form
-        className=" border  max-w-[25rem] shadow-2xl bg-[#551e1b] opacity-95 mt-14 mx-auto"
+        className=" border  max-w-[25rem] shadow-2xl bg-[#551e1b] opacity-95 mt-14 mx-auto "
         action={action}
       >
         <InputContainer>
